@@ -20,4 +20,30 @@ function displayBooks() {
     </div>`
   })
 }
+if(localStorage.getItem('Books')) {
+  bookList = JSON.parse(localStorage.getItem('Books'));
+  displayBooks();
+}
+
+let addBooks = (e) => {
+  e.preventDefault();
+  getValues();
+  let data = {
+    title:  bookTitle,
+    author: bookAuthor
+  }
+  bookList.push(data);
+  bookTitle = '';
+  bookAuthor = '';
+  localStorage.setItem('Books', JSON.stringify(bookList));
+  displayBooks();
+}
+
+document.querySelector('.btnadd').addEventListener('click', addBooks);
+function removeItem(index) {
+  bookList.splice(index, 1);
+  localStorage.setItem('Books', JSON.stringify(bookList));
+  displayBooks();
+}
+
 
